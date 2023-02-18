@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foobar_shop/core/dependencies/authentication/authentication.dart'
     as auth;
+import 'package:foobar_shop/core/dependencies/cart/cart.dart' as cart;
 import 'package:foobar_shop/core/dependencies/products/products.dart'
     as products;
 import 'package:foobar_shop/core/dependencies/router/router_dependencies.dart'
@@ -30,6 +31,7 @@ Future<void> initializeDependencies() async {
   router.init();
   auth.init();
   products.init();
+  cart.init();
 }
 
 /// Registers a Flutter Secure Storage singleton

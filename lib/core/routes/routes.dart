@@ -4,6 +4,14 @@ enum Routes {
     path: '/',
     name: 'home',
   ),
+  product(
+    path: '/product',
+    name: 'product',
+  ),
+  cart(
+    path: '/cart',
+    name: 'cart',
+  ),
   login(
     path: '/login',
     name: 'login',
