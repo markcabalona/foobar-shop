@@ -1,9 +1,11 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foobar_shop/core/dependencies/authentication/authentication.dart'
     as auth;
+import 'package:foobar_shop/core/dependencies/products/products.dart'
+    as products;
 import 'package:foobar_shop/core/dependencies/router/router_dependencies.dart'
     as router;
-import 'package:get_it/get_it.dart';
+import 'package:get_it/get_it.dart' show GetIt;
 
 final serviceLocator = GetIt.instance;
 
@@ -27,6 +29,7 @@ Future<void> initializeDependencies() async {
 
   router.init();
   auth.init();
+  products.init();
 }
 
 /// Registers a Flutter Secure Storage singleton

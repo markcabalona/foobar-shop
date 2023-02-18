@@ -5,7 +5,7 @@ class ProductModel extends Product {
     required super.id,
     required super.name,
     required super.description,
-    required super.imaegPath,
+    required super.imagePath,
     required super.price,
   });
 
@@ -15,7 +15,7 @@ class ProductModel extends Product {
       id,
       name,
       description,
-      imaegPath,
+      imagePath,
       price,
     ];
   }
@@ -25,7 +25,7 @@ class ProductModel extends Product {
       id: map['id'] as String,
       name: map['name'] as String,
       description: map['description'] as String,
-      imaegPath: map['imaeg_path'] as String,
+      imagePath: map['image_path'] as String,
       price: map['price'] as double,
     );
   }

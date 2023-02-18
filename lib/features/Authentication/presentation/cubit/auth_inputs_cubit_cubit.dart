@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,6 +9,13 @@ class AuthInputsCubit extends Cubit<AuthInputsState> {
           loginInputs: LoginInputs(),
           registrationInputs: RegistrationInputs(),
         ));
+
+  void resetInputs() {
+    emit(const AuthInputsState(
+      loginInputs: LoginInputs(),
+      registrationInputs: RegistrationInputs(),
+    ));
+  }
 
   void updateLoginInputs({
     String? email,

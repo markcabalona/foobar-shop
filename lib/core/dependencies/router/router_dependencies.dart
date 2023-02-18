@@ -9,9 +9,6 @@ void init() {
   serviceLocator.registerLazySingleton<GoRouter>(
     () => GoRouter(
       initialLocation: Routes.login.path,
-      redirect: (context, state) {
-        return null;
-      },
       routes: [
         serviceLocator<RouteBase>(instanceName: 'auth'),
         serviceLocator<RouteBase>(instanceName: 'home'),

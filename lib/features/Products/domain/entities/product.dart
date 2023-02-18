@@ -5,13 +5,13 @@ class Product extends Equatable {
   final String id;
   final String name;
   final String description;
-  final String imaegPath;
+  final String imagePath;
   final double price;
   const Product({
     required this.id,
     required this.name,
     required this.description,
-    required this.imaegPath,
+    required this.imagePath,
     required this.price,
   });
 
@@ -21,7 +21,7 @@ class Product extends Equatable {
       id,
       name,
       description,
-      imaegPath,
+      imagePath,
       price,
     ];
   }

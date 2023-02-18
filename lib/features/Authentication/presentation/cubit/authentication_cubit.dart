@@ -26,6 +26,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       (failure) {
         emit(
           state.copyWith(
+            authStatus: AuthStatus.unauthenticated,
             errorMessage: failure.message,
           ),
         );
@@ -78,6 +79,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   void logout() {
+    FirebaseAuth.instance.signOut();
     emit(const AuthenticationState());
   }
 }

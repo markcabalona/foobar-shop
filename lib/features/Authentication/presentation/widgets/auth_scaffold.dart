@@ -4,11 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foobar_shop/core/dependencies/dependencies.dart'
     show serviceLocator;
 import 'package:foobar_shop/core/enums/state_status.dart';
-import 'package:foobar_shop/core/routes/routes.dart';
 import 'package:foobar_shop/core/utils/state_indicator.dart';
 import 'package:foobar_shop/features/Authentication/presentation/cubit/auth_inputs_cubit_cubit.dart';
 import 'package:foobar_shop/features/Authentication/presentation/cubit/authentication_cubit.dart';
-import 'package:go_router/go_router.dart';
 
 class AuthScaffold extends StatelessWidget {
   const AuthScaffold({
@@ -36,15 +34,14 @@ class AuthScaffold extends StatelessWidget {
               showLoading(state.loadingMessage ?? 'Loading...');
               break;
             case AuthStatus.authenticated:
-              showSuccess(state.loadingMessage ?? 'Authenticated');
-              context.goNamed(Routes.home.name);
+              serviceLocator<AuthInputsCubit>().resetInputs();
+              showSuccess('Authenticated');
               break;
             case AuthStatus.unauthenticated:
               showError(state.errorMessage ?? 'Unauthenticated');
               break;
             default:
           }
-          if (state.authStatus == AuthStatus.authenticating) {}
         },
         child: SafeArea(
           child: Scaffold(

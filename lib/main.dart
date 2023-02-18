@@ -1,10 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:foobar_shop/core/dependencies/dependencies.dart';
+import 'package:foobar_shop/core/enums/state_status.dart';
+import 'package:foobar_shop/core/routes/routes.dart';
 import 'package:foobar_shop/core/theme/theme.dart';
+import 'package:foobar_shop/features/Authentication/presentation/cubit/authentication_cubit.dart';
 import 'package:foobar_shop/firebase_options.dart';
 import 'package:go_router/go_router.dart';
 
@@ -52,9 +57,40 @@ class MyApp extends StatelessWidget {
       title: 'FooBar - Shop',
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
-      // themeMode: ThemeMode.light,
+      themeMode: ThemeMode.light,
       routerConfig: serviceLocator<GoRouter>(),
-      builder: EasyLoading.init(),
+      builder: EasyLoading.init(
+        builder: (context, child) {
+          final isAuthenticated = FirebaseAuth.instance.currentUser != null;
+          final router = serviceLocator<GoRouter>();
+          final isAuthenticating = [Routes.login.path, Routes.registration.path]
+              .contains(router.location);
+          if (isAuthenticated && isAuthenticating) {
+            router.goNamed(Routes.home.name);
+          } else if (!isAuthenticated && !isAuthenticating) {
+            router.goNamed(Routes.login.name);
+          }
+          return BlocListener<AuthenticationCubit, AuthenticationState>(
+            bloc: serviceLocator(),
+            listener: (context, state) {
+              final isAuthenticated =
+                  state.authStatus == AuthStatus.authenticated;
+              final router = serviceLocator<GoRouter>();
+              final isAuthenticating = [
+                Routes.login.path,
+                Routes.registration.path
+              ].contains(router.location);
+
+              if (isAuthenticated && isAuthenticating) {
+                router.goNamed(Routes.home.name);
+              } else if (!isAuthenticated && !isAuthenticating) {
+                router.goNamed(Routes.login.name);
+              }
+            },
+            child: child ?? const SizedBox(),
+          );
+        },
+      ),
     );
   }
 }

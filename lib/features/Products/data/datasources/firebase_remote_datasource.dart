@@ -5,7 +5,7 @@ import 'package:foobar_shop/core/mixins/firebase_handler_mixin.dart';
 import 'package:foobar_shop/features/Products/data/datasources/products_datasource.dart';
 import 'package:foobar_shop/features/Products/data/models/product_model.dart';
 
-class RemoteCartDataSourceImpl
+class RemoteProductDataSourceImpl
     with FirestoreHandlerMixin
     implements RemoteProductDataSource {
   @override
