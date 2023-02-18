@@ -9,3 +9,7 @@ class CustomException implements Exception {
 class AuthException extends CustomException {
   const AuthException({super.message});
 }
+
+class CartException extends CustomException {
+  const CartException({super.message});
+}
