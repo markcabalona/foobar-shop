@@ -10,6 +10,6 @@ class AuthException extends CustomException {
   const AuthException({super.message});
 }
 
-class CartException extends CustomException {
-  const CartException({super.message});
+class ProductException extends CustomException {
+  const ProductException({super.message});
 }

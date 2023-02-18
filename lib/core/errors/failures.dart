@@ -12,8 +12,8 @@ class AuthFailure extends Failure {
   });
 }
 
-class CartFailure extends Failure {
-  const CartFailure({
+class ProductFailure extends Failure {
+  const ProductFailure({
     required super.message,
   });
 }

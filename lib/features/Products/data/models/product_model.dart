@@ -1,4 +1,4 @@
-import 'package:foobar_shop/features/Cart/domain/entities/product.dart';
+import 'package:foobar_shop/features/Products/domain/entities/product.dart';
 
 class ProductModel extends Product {
   const ProductModel({

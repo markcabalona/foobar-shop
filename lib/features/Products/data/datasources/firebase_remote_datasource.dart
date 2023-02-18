@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:foobar_shop/core/errors/exceptions.dart';
 import 'package:foobar_shop/core/mixins/firebase_handler_mixin.dart';
-import 'package:foobar_shop/features/Cart/data/datasources/remote_datasource.dart';
-import 'package:foobar_shop/features/Cart/data/models/product_model.dart';
+import 'package:foobar_shop/features/Products/data/datasources/products_datasource.dart';
+import 'package:foobar_shop/features/Products/data/models/product_model.dart';
 
 class RemoteCartDataSourceImpl
     with FirestoreHandlerMixin
-    implements RemoteCartDataSource {
+    implements RemoteProductDataSource {
   @override
   Future<List<ProductModel>> fetchProducts() {
     return firestoreHandler(
@@ -23,7 +23,7 @@ class RemoteCartDataSourceImpl
       },
       onFailure: (error) {
         log(error.message ?? error.code);
-        throw CartException(message: error.message ?? error.code);
+        throw ProductException(message: error.message ?? error.code);
       },
     );
   }
