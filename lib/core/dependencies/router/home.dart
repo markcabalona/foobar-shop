@@ -51,6 +51,17 @@ void init() {
           pageBuilder: (context, state) => const NoTransitionPage(
             child: CartPage(),
           ),
+          routes: [
+            GoRoute(
+              path: Routes.product.subpath,
+              name: Routes.product.subname(Routes.cart.name),
+              pageBuilder: (context, state) => NoTransitionPage(
+                child: ProductPage(
+                  product: state.extra as Product,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     ),
