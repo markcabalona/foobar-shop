@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -64,9 +65,9 @@ class MyApp extends StatelessWidget {
           return FutureBuilder(
               future: FirebaseAuth.instance.authStateChanges().first,
               builder: (context, user) {
+                final router = serviceLocator<GoRouter>();
                 if (user.hasData) {
                   final isAuthenticated = user.data != null;
-                  final router = serviceLocator<GoRouter>();
                   final isAuthenticating = [
                     Routes.login.path,
                     Routes.registration.path
@@ -79,19 +80,19 @@ class MyApp extends StatelessWidget {
                 }
                 return BlocListener<AuthenticationCubit, AuthenticationState>(
                   bloc: serviceLocator(),
+                  listenWhen: (previous, current) => [
+                    AuthStatus.authenticated,
+                    AuthStatus.unauthenticated
+                  ].contains(current.authStatus),
                   listener: (context, state) {
-                    final isAuthenticated =
-                        state.authStatus == AuthStatus.authenticated;
-                    final router = serviceLocator<GoRouter>();
-                    final isAuthenticating = [
-                      Routes.login.path,
-                      Routes.registration.path
-                    ].contains(router.location);
-
-                    if (isAuthenticated && isAuthenticating) {
-                      router.goNamed(Routes.home.name);
-                    } else if (!isAuthenticated && !isAuthenticating) {
-                      router.goNamed(Routes.login.name);
+                    switch (state.authStatus) {
+                      case AuthStatus.authenticated:
+                        router.goNamed(Routes.home.name);
+                        break;
+                      case AuthStatus.unauthenticated:
+                        router.goNamed(Routes.login.name);
+                        break;
+                      default:
                     }
                   },
                   child: child ?? const SizedBox(),

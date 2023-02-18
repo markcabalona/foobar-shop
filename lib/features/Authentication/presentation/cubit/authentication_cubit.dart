@@ -78,8 +78,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
   }
 
-  void logout() {
-    FirebaseAuth.instance.signOut();
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
     emit(const AuthenticationState());
   }
 }

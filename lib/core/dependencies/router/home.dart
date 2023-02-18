@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foobar_shop/core/dependencies/dependencies.dart'
     show serviceLocator;
 import 'package:foobar_shop/core/routes/routes.dart';
+import 'package:foobar_shop/features/Authentication/presentation/cubit/authentication_cubit.dart';
 import 'package:foobar_shop/features/Products/presentation/pages/products_pages.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,7 +39,20 @@ class HomeScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FooBar - Shop'),
+        title: const Text('FooBar Shop'),
+        actions:  [
+          GestureDetector(
+            onTap: () {
+              serviceLocator<AuthenticationCubit>().logout();
+            },
+            child: Row(
+              children: const [
+                Text('Logout'),
+                Icon(Icons.logout_outlined),
+              ],
+            ),
+          ),
+        ],
       ),
       body: body,
     );
