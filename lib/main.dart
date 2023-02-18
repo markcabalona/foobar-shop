@@ -61,34 +61,42 @@ class MyApp extends StatelessWidget {
       routerConfig: serviceLocator<GoRouter>(),
       builder: EasyLoading.init(
         builder: (context, child) {
-          final isAuthenticated = FirebaseAuth.instance.currentUser != null;
-          final router = serviceLocator<GoRouter>();
-          final isAuthenticating = [Routes.login.path, Routes.registration.path]
-              .contains(router.location);
-          if (isAuthenticated && isAuthenticating) {
-            router.goNamed(Routes.home.name);
-          } else if (!isAuthenticated && !isAuthenticating) {
-            router.goNamed(Routes.login.name);
-          }
-          return BlocListener<AuthenticationCubit, AuthenticationState>(
-            bloc: serviceLocator(),
-            listener: (context, state) {
-              final isAuthenticated =
-                  state.authStatus == AuthStatus.authenticated;
-              final router = serviceLocator<GoRouter>();
-              final isAuthenticating = [
-                Routes.login.path,
-                Routes.registration.path
-              ].contains(router.location);
+          return FutureBuilder(
+              future: FirebaseAuth.instance.authStateChanges().first,
+              builder: (context, user) {
+                if (user.hasData) {
+                  final isAuthenticated = user.data != null;
+                  final router = serviceLocator<GoRouter>();
+                  final isAuthenticating = [
+                    Routes.login.path,
+                    Routes.registration.path
+                  ].contains(router.location);
+                  if (isAuthenticated && isAuthenticating) {
+                    router.goNamed(Routes.home.name);
+                  } else if (!isAuthenticated && !isAuthenticating) {
+                    router.goNamed(Routes.login.name);
+                  }
+                }
+                return BlocListener<AuthenticationCubit, AuthenticationState>(
+                  bloc: serviceLocator(),
+                  listener: (context, state) {
+                    final isAuthenticated =
+                        state.authStatus == AuthStatus.authenticated;
+                    final router = serviceLocator<GoRouter>();
+                    final isAuthenticating = [
+                      Routes.login.path,
+                      Routes.registration.path
+                    ].contains(router.location);
 
-              if (isAuthenticated && isAuthenticating) {
-                router.goNamed(Routes.home.name);
-              } else if (!isAuthenticated && !isAuthenticating) {
-                router.goNamed(Routes.login.name);
-              }
-            },
-            child: child ?? const SizedBox(),
-          );
+                    if (isAuthenticated && isAuthenticating) {
+                      router.goNamed(Routes.home.name);
+                    } else if (!isAuthenticated && !isAuthenticating) {
+                      router.goNamed(Routes.login.name);
+                    }
+                  },
+                  child: child ?? const SizedBox(),
+                );
+              });
         },
       ),
     );
