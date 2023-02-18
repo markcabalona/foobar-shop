@@ -2,10 +2,15 @@
 
 This is a dummy e-commerce application
 
-## Requirements
-- Flutter SDK:  >=3.7.3 (Dart SDK: >=2.19.2) 
+## App Demo - Android
+ You can get the latest apk build [here](https://drive.google.com/drive/folders/1-52cGFZv6EDxBtFjwhHGKt8GQ_q6Jdcl?usp=share_link)
+
+# Run the app in your machine
 
 ## Getting Started
+
+## Requirements
+- Flutter SDK:  >=3.7.3 (Dart SDK: >=2.19.2) 
 
 ### Clone this repository
 ```
