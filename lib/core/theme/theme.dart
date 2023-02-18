@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foobar_shop/core/constants/grid.dart';
 import 'package:foobar_shop/core/theme/color_schemes.g.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,11 +11,22 @@ abstract class CustomTheme {
         fontFamily: GoogleFonts.montserrat().fontFamily,
         useMaterial3: true,
         colorScheme: colorScheme,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: CustomGrid.medium,
+          ),
+          alignLabelWithHint: true,
+        ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
           ),
         ),
       );

@@ -1,4 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:foobar_shop/core/dependencies/authentication/authentication.dart'
+    as auth;
 import 'package:foobar_shop/core/dependencies/router/router_dependencies.dart'
     as router;
 import 'package:get_it/get_it.dart';
@@ -24,6 +26,7 @@ Future<void> initializeDependencies() async {
   registerSecureStorage();
 
   router.init();
+  auth.init();
 }
 
 /// Registers a Flutter Secure Storage singleton

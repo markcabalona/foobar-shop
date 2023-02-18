@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
       title: 'FooBar - Shop',
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
+      // themeMode: ThemeMode.light,
       routerConfig: serviceLocator<GoRouter>(),
     );
   }
