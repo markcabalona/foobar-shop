@@ -1,4 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:foobar_shop/core/dependencies/router/router_dependencies.dart'
+    as router;
 import 'package:get_it/get_it.dart';
 
 final serviceLocator = GetIt.instance;
@@ -20,6 +22,8 @@ final serviceLocator = GetIt.instance;
 /// You can also use `serviceLocator` instead of `GetIt.instance`
 Future<void> initializeDependencies() async {
   registerSecureStorage();
+
+  router.init();
 }
 
 /// Registers a Flutter Secure Storage singleton
