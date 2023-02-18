@@ -5,3 +5,7 @@ class CustomException implements Exception {
     this.message,
   });
 }
+
+class AuthException extends CustomException {
+  const AuthException({super.message});
+}

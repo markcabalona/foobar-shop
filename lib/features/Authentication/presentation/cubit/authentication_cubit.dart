@@ -17,6 +17,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   Future<void> login({required String email, required String password}) async {
+    emit(state.copyWith(
+      authStatus: AuthStatus.authenticating,
+      loadingMessage: 'Logging In. Please wait',
+    ));
     final result = await _repository.login(email: email, password: password);
     result.fold(
       (failure) {
@@ -37,14 +41,28 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
   }
 
-  Future<void> register(
-      {required String email, required String password}) async {
-    final result = await _repository.login(email: email, password: password);
+  Future<void> register({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
+    emit(state.copyWith(
+      authStatus: AuthStatus.authenticating,
+      loadingMessage: 'Creating your account',
+    ));
+    final result = await _repository.register(
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    );
     result.fold(
       (failure) {
         emit(
           state.copyWith(
             errorMessage: failure.message,
+            authStatus: AuthStatus.unauthenticated,
           ),
         );
       },
@@ -57,5 +75,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         );
       },
     );
+  }
+
+  void logout() {
+    emit(const AuthenticationState());
   }
 }

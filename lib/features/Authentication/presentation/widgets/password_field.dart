@@ -7,12 +7,14 @@ class PasswordField extends StatefulWidget {
   const PasswordField({
     Key? key,
     this.initialValue,
+    this.hintText,
     this.textInputAction = TextInputAction.done,
     this.onChanged,
     this.validator,
   }) : super(key: key);
 
   final String? initialValue;
+  final String? hintText;
   final TextInputAction textInputAction;
   final void Function(String value)? onChanged;
   final String? Function(String? value)? validator;
@@ -48,8 +50,8 @@ class _PasswordFieldState extends State<PasswordField> {
       textInputAction: widget.textInputAction,
       obscureText: isHidden,
       decoration: InputDecoration(
-        hintText: 'Password',
-        label: const Text('Password'),
+        hintText: widget.hintText ?? 'Password',
+        label: Text(widget.hintText ?? 'Password'),
         errorMaxLines: 4,
         suffix: GestureDetector(
           onTap: () {

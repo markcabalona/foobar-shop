@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:foobar_shop/core/dependencies/dependencies.dart';
 import 'package:foobar_shop/core/theme/theme.dart';
 import 'package:foobar_shop/firebase_options.dart';
@@ -13,6 +14,9 @@ Future<void> main() async {
   Animate.defaultCurve = Curves.ease;
   Animate.defaultDuration = 800.ms;
   Animate.restartOnHotReload = true;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await Future.wait(
     [
       SystemChrome.setPreferredOrientations([
@@ -35,10 +39,6 @@ Future<void> main() async {
             Brightness.light // Dark == white status bar -- for IOS.
         ),
   );
-  Firebase.initializeApp(
-    name: 'foobar-shop',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   runApp(const MyApp());
 }
@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
       darkTheme: CustomTheme.darkTheme,
       // themeMode: ThemeMode.light,
       routerConfig: serviceLocator<GoRouter>(),
+      builder: EasyLoading.init(),
     );
   }
 }

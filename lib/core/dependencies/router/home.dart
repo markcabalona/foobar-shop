@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:foobar_shop/core/dependencies/dependencies.dart'
     show serviceLocator;
 import 'package:foobar_shop/core/routes/routes.dart';
@@ -8,6 +8,9 @@ void init() {
   serviceLocator.registerLazySingleton<RouteBase>(
     instanceName: 'home',
     () => ShellRoute(
+      pageBuilder: (context, state, child) => MaterialPage(
+        child: child,
+      ),
       routes: [
         GoRoute(
           path: Routes.home.path,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 mixin FirestoreHandlerMixin {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -15,7 +16,8 @@ mixin FirestoreHandlerMixin {
       return onFailure(e);
     } catch (e) {
       log(name: 'FirebaseHandlerMixin: ', e.toString());
-      rethrow;
+      // rethrow;
+      return onFailure(FirebaseAuthException(code: 'code'));
     }
   }
 }

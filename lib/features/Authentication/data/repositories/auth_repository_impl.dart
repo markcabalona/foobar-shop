@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foobar_shop/core/errors/failures.dart';
@@ -32,7 +33,6 @@ class AuthRepositoryImpl with RepositoryHandlerMixin implements AuthRepository {
     required String lastName,
     required String email,
     required String password,
-    required String phoneNumber,
   }) {
     return this(
       request: () {
@@ -41,7 +41,6 @@ class AuthRepositoryImpl with RepositoryHandlerMixin implements AuthRepository {
           lastName: lastName,
           email: email,
           password: password,
-          phoneNumber: phoneNumber,
         );
       },
       onFailure: (message) {

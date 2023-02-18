@@ -6,8 +6,10 @@ import 'package:foobar_shop/core/constants/grid.dart';
 import 'package:foobar_shop/core/constants/spacers.dart';
 import 'package:foobar_shop/core/dependencies/dependencies.dart';
 import 'package:foobar_shop/core/routes/routes.dart';
+import 'package:foobar_shop/core/utils/validators/email.dart';
 import 'package:foobar_shop/features/Authentication/presentation/cubit/auth_inputs_cubit_cubit.dart';
-import 'package:foobar_shop/features/Authentication/presentation/widgets/email_field.dart';
+import 'package:foobar_shop/features/Authentication/presentation/cubit/authentication_cubit.dart';
+import 'package:foobar_shop/features/Authentication/presentation/widgets/generic_field.dart';
 import 'package:foobar_shop/features/Authentication/presentation/widgets/password_field.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,15 +49,17 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               VerticalSpacers.large,
-              EmailField(
+              GenericField(
                 initialValue:
                     serviceLocator<AuthInputsCubit>().state.loginInputs.email,
+                validator: validateEmail,
+                hintText: 'Email',
                 onChanged: (value) {
                   serviceLocator<AuthInputsCubit>().updateLoginInputs(
                     email: value,
                   );
                 },
-              ).animate(delay: 400.ms).slideY(begin: .5).fadeIn(),
+              ).animate(delay: 400.ms).slideX(begin: -.5).fadeIn(),
               VerticalSpacers.medium,
               PasswordField(
                 initialValue: serviceLocator<AuthInputsCubit>()
@@ -67,22 +71,26 @@ class LoginPage extends StatelessWidget {
                     password: value,
                   );
                 },
-              ).animate(delay: 400.ms).slideY(begin: .5).fadeIn(),
+              ).animate(delay: 600.ms).slideX(begin: -.5).fadeIn(),
               VerticalSpacers.medium,
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  final inputs = serviceLocator<AuthInputsCubit>().state;
+                  serviceLocator<AuthenticationCubit>().login(
+                    email: inputs.loginInputs.email!,
+                    password: inputs.loginInputs.password!,
+                  );
+                },
                 child: const SizedBox(
                   width: double.infinity,
                   child: Center(
                     child: Text("Login"),
                   ),
                 ),
-              ).animate(delay: 800.ms).slideY(begin: .5).fadeIn(),
+              ).animate(delay: 800.ms).slideX(begin: -.5).fadeIn(),
               VerticalSpacers.medium,
               Row(
                 children: [
-                  const Expanded(child: Divider()),
-                  HorizontalSpacers.small,
                   Text.rich(TextSpan(
                     children: [
                       const TextSpan(
@@ -91,7 +99,6 @@ class LoginPage extends StatelessWidget {
                       TextSpan(
                         text: 'Sign up',
                         style: TextStyle(
-                          decoration: TextDecoration.underline,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         recognizer: TapGestureRecognizer()
@@ -101,9 +108,13 @@ class LoginPage extends StatelessWidget {
                       ),
                     ],
                   ))
-                      .animate(delay: 1200.ms)
-                      .slideX(begin: 1, duration: 800.ms)
+                      .animate(delay: 1000.ms)
+                      .slideX(
+                        begin: -.5,
+                      )
                       .fadeIn(),
+                  HorizontalSpacers.small,
+                  const Expanded(child: Divider()),
                 ],
               ),
             ],

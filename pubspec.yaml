@@ -47,6 +47,7 @@ dependencies:
   firebase_auth: ^4.2.8
   google_fonts: ^4.0.3
   email_validator: ^2.1.17
+  flutter_easyloading: ^3.0.5
 
 dev_dependencies:
   flutter_test:
